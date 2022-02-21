@@ -11,6 +11,25 @@ public class TrackEditor : Editor
     TrackCreator creator;
     Track track;
 
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        if (GUILayout.Button("Create new"))
+        {
+            creator.CreateTrack();
+            track = creator.track;
+            SceneView.RepaintAll();
+        }
+
+
+        if (GUILayout.Button("Toggle closed"))
+        {
+            track.ToggleClosed();
+            SceneView.RepaintAll();
+        }
+    }
+
     private void OnSceneGUI()
     {
         Input();

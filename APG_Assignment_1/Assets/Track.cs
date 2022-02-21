@@ -10,6 +10,9 @@ public class Track
     [SerializeField, HideInInspector]
     List<Vector3> points;
 
+    [SerializeField, HideInInspector]
+    bool isClosed;
+
     public Track(Vector3 centre)
     {
         points = new List<Vector3>
@@ -41,7 +44,7 @@ public class Track
     {
         get
         {
-            return (points.Count - 4) / 3 + 1;
+            return points.Count / 3;
         }
     }
 
@@ -54,43 +57,63 @@ public class Track
 
     public Vector3[] GetPointsInSegment(int i)
     {
-        return new Vector3[] { points[i * 3], points[i * 3 + 1], points[i * 3 + 2], points[i * 3 + 3] };
+        return new Vector3[] { points[i * 3], points[i * 3 + 1], points[i * 3 + 2], points[LoopIndex(i * 3 + 3)] };
     }
 
     public void MovePoint(int i, Vector3 newPos)
     {
+        Vector3 deltaMove = newPos - points[i];
         points[i] = newPos;
+
+        if (i%3 == 0) // moving an anchor points so move control points too
+        {
+            if (i + 1 < points.Count || isClosed)
+            {
+                points[LoopIndex(i + 1)] += deltaMove;
+            }
+            if (i - 1 >= 0 || isClosed)
+            {
+                points[LoopIndex(i - 1)] += deltaMove;
+            } 
+        }
+        else
+        {
+            bool nextPointIsAnchor = (i + 1) % 3 == 0;
+            int correspondingControlIdx = (nextPointIsAnchor) ? i + 2 : i - 2;
+            int anchorIdx = (nextPointIsAnchor) ? i + 1 : i - 1;
+
+            if (correspondingControlIdx >= 0 && correspondingControlIdx < points.Count || isClosed)
+            {
+
+                float distance = (points[LoopIndex(anchorIdx)] - points[LoopIndex(correspondingControlIdx)]).magnitude;
+                Vector3 direction = (points[LoopIndex(anchorIdx)] - newPos).normalized;
+                points[LoopIndex(correspondingControlIdx)] = points[LoopIndex(anchorIdx)] + direction * distance;
+
+            }
+
+        }
+
+
     }
 
-    //public Transform[] controlPoints;
-    //public Transform train;
+    public void ToggleClosed()
+    {
+        isClosed = !isClosed;
 
-    //[Range(0f, 1f)]
-    //public float t;
+        if (isClosed)
+        {
+            points.Add(points[points.Count - 1] * 2 - points[points.Count - 2]);
+            points.Add(points[0] * 2 - points[1]);
+        }
+        else
+        {
+            points.RemoveRange(points.Count - 2, 2);
+        }
 
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //    train.position = controlPoints[0].position;
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    train.position = CubicLerp(controlPoints[0].position, controlPoints[1].position, controlPoints[2].position, controlPoints[3].position, t);
-    //}
-
-    //public Vector3 QuadraticLerp(Vector3 a, Vector3 b, Vector3 c, float t)
-    //{
-    //    Vector3 p0 = Vector3.Lerp(a, b, t);
-    //    Vector3 p1 = Vector3.Lerp(b, c, t);
-    //    return Vector3.Lerp(p0, p1, t);
-    //}
-
-    //public Vector3 CubicLerp(Vector3 a, Vector3 b, Vector3 c, Vector3 d, float t)
-    //{
-    //    Vector3 p0 = QuadraticLerp(a, b, c, t);
-    //    Vector3 p1 = QuadraticLerp(b, c, d, t);
-    //    return Vector3.Lerp(p0, p1, t);
-    //}
+    }
+    
+    int LoopIndex(int i)
+    {
+        return (i + points.Count) % points.Count;
+    }
 }
