@@ -154,19 +154,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   track:
     points:
-    - {x: -1.0253475, y: 1.3571811, z: 3.5612328}
-    - {x: -0.5443643, y: 1.3885349, z: 3.0438623}
-    - {x: 0.37144613, y: 0.9560728, z: 5.1836023}
-    - {x: 0.9746525, y: 1.3571811, z: 3.5612328}
-    - {x: 3.198702, y: 2.8360856, z: -2.4205177}
-    - {x: 1.393081, y: 3.7381382, z: 1.5875874}
-    - {x: 1.3115095, y: 5.6190953, z: -0.38605797}
-    - {x: 1.229938, y: 7.5000525, z: -2.3597033}
-    - {x: -9.771008, y: -1.1099675, z: 15.450465}
-    - {x: -4.009037, y: 1.2052698, z: 14.6202135}
-    - {x: 1.7529335, y: 3.520507, z: 13.789962}
-    - {x: -1.5063307, y: 1.3258272, z: 4.0786033}
+    - {x: -1, y: 0, z: 0}
+    - {x: -0.5, y: 0.5, z: 0}
+    - {x: 0.5, y: -0.5, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: 1.5, y: 0.5, z: 0}
+    - {x: 2.0392241, y: 2.3280244, z: 0.3508911}
+    - {x: 0.5218916, y: 3.8601022, z: -3.3907385}
+    - {x: -0.2528888, y: 4.6424117, z: -5.3012896}
+    - {x: -1.5, y: -0.5, z: 0}
     isClosed: 1
+    autoSetControlPoints: 0
+  anchorCol: {r: 1, g: 0, b: 0, a: 1}
+  controlCol: {r: 1, g: 1, b: 1, a: 1}
+  segmentCol: {r: 0, g: 1, b: 0, a: 1}
+  selectedSegmentCol: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  anchorDiameter: 0.1
+  controlDiameter: 0.075
+  displayControlPoints: 1
 --- !u!4 &635097372
 Transform:
   m_ObjectHideFlags: 0
@@ -175,7 +180,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635097370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.025347471, y: 1.3571811, z: 3.5612328}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
