@@ -206,10 +206,41 @@ public class Track
 
             }
         }
+    }
 
+    public Vector3[] CalculateEvenlySpacedPoints(float spacing, float resolution = 1)
+    {
+        List<Vector3> evenlySpacedPoints = new List<Vector3>();
+        evenlySpacedPoints.Add(points[0]);
+        Vector3 previousPoint = points[0];
+        float distanceSinceLastEvenPoint = 0;
 
+        for (int segmentIdx = 0; segmentIdx < NumSegments; segmentIdx++)
+        {
+            Vector3[] p = GetPointsInSegment(segmentIdx);
+            float controlNetLength = Vector3.Distance(p[0], p[1]) + Vector3.Distance(p[1], p[2]) + Vector3.Distance(p[2], p[3]);
+            float estimatedCurveLength = Vector3.Distance(p[0], p[3]) + (controlNetLength * 0.5f);
+            int divisions = Mathf.CeilToInt(estimatedCurveLength * resolution * 10); // some const 10 
+            float t = 0;
+            while (t <= 1)
+            {
+                t += 1f/divisions;
+                Vector3 pointOnCurve = Bezier.EvaluateCubic(p[0], p[1], p[2], p[3], t);
+                distanceSinceLastEvenPoint += Vector3.Distance(previousPoint, pointOnCurve);
 
+                while (distanceSinceLastEvenPoint >= spacing)
+                {
+                    float overshootDist = distanceSinceLastEvenPoint - spacing;
+                    Vector3 newEvenlySpacedPoint = pointOnCurve + (previousPoint - pointOnCurve).normalized * overshootDist;
+                    evenlySpacedPoints.Add(newEvenlySpacedPoint);
+                    distanceSinceLastEvenPoint = overshootDist;
+                    previousPoint = newEvenlySpacedPoint;
+                }
+                previousPoint = pointOnCurve;
+            }
+        }
 
+        return evenlySpacedPoints.ToArray();
     }
 
     void AutoSetAllAffectedControlPoints(int updatedAnchorIndex)

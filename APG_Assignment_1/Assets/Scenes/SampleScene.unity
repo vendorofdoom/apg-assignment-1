@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 635097372}
   - component: {fileID: 635097371}
+  - component: {fileID: 635097373}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -155,16 +156,16 @@ MonoBehaviour:
   track:
     points:
     - {x: -1, y: 0, z: 0}
-    - {x: -0.5, y: 0.5, z: 0}
-    - {x: 0.5, y: -0.5, z: 0}
+    - {x: -0.4016748, y: -0.60198724, z: 0.52878946}
+    - {x: 0.3264482, y: -0.55532104, z: 0.48779753}
     - {x: 1, y: 0, z: 0}
-    - {x: 1.5, y: 0.5, z: 0}
-    - {x: 2.0392241, y: 2.3280244, z: 0.3508911}
+    - {x: 2.7377796, y: 1.4327413, z: -1.2585291}
+    - {x: 3.0896382, y: 3.6712265, z: -3.224829}
     - {x: 0.5218916, y: 3.8601022, z: -3.3907385}
-    - {x: -0.2528888, y: 4.6424117, z: -5.3012896}
-    - {x: -1.5, y: -0.5, z: 0}
+    - {x: -2.1446152, y: 4.0562425, z: -3.563029}
+    - {x: -2.6030664, y: 1.612878, z: -1.4167624}
     isClosed: 1
-    autoSetControlPoints: 0
+    autoSetControlPoints: 1
   anchorCol: {r: 1, g: 0, b: 0, a: 1}
   controlCol: {r: 1, g: 1, b: 1, a: 1}
   segmentCol: {r: 0, g: 1, b: 0, a: 1}
@@ -186,6 +187,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &635097373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635097370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae874955c733364db44f35994a59b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spacing: 0.5
+  resolution: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
