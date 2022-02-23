@@ -2,41 +2,82 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Place stations
+// Position control points
+// Generate track points
+// Add lil train to move around between stations
+// Add track mesh?
+// Get lil train to point in the right direction around track
+
 // Parts of this script are adapted for 3D from Sebastian Lague 2D Curve Editor Tutorial Series: https://youtu.be/RF04Fi9OCPc
 
 public class TrainTrack : MonoBehaviour
 {
-    public Station[] stations;
+    [Header("Stations")]
+    public int numStations;
+    public List<Station> stations;
     public float[] distanceToNextStation;
+    public Transform stationParent;
+    public GameObject stationPrefab;
 
+    [Header("Track")]
     public float spacing = 0.1f;
     public float resolution = 1f;
-
     public Vector3[] trackPoints;
     public Vector3[] trackDirs;
-
     public Transform trackParent;
     public GameObject trackPrefab;
 
+
     private void Awake()
     {
+        PlaceStations();
         SetAllStationControlPoints();
         GenerateTrackPoints();
+        DrawTrack();
     }
 
-    private void Start()
+    private void Update()
     {
+        if (Input.GetKeyDown("space"))
+        {
+            ClearTracksAndStations();
+            PlaceStations();
+            SetAllStationControlPoints();
+            GenerateTrackPoints();
+            DrawTrack();
+        }
+    }
 
-        // Place stations
-        // Position control points
-        // Generate track points
-        // Add lil train to move around between stations
-        // Add track mesh?
-        // Get lil train to point in the right direction around track
 
-        
-        
-        DrawTrack();
+    private void ClearTracksAndStations()
+    {
+        foreach(Transform child in trackParent)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in stationParent)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    private void PlaceStations()
+    {
+        stations = new List<Station>();
+
+        Vector3 origin = Vector3.zero;
+        Vector3 dir = Vector3.forward;
+
+        for (int i = 0; i < numStations; i++)
+        {
+            GameObject g = GameObject.Instantiate(stationPrefab, stationParent);
+            g.transform.position = (origin + dir * Random.Range(10f, 20f)) + (Vector3.up * Random.Range(0f, 10f));
+            stations.Add(g.GetComponent<Station>());
+            dir = Quaternion.Euler(0, 360f / numStations, 0) * dir;
+        }
 
     }
 
@@ -54,9 +95,9 @@ public class TrainTrack : MonoBehaviour
     // Calc distance between stations and evenly spaced distances / forwards between them
     private void GenerateTrackPoints()
     {
-        distanceToNextStation = new float[stations.Length];
+        distanceToNextStation = new float[stations.Count];
 
-        if (stations.Length < 2)
+        if (stations.Count < 2)
         {
             return; // not enough to form a loop!
         }
@@ -69,11 +110,9 @@ public class TrainTrack : MonoBehaviour
         List<Vector3> evenlySpacedForwards = new List<Vector3>();
         evenlySpacedForwards.Add((stations[0].postControl.transform.position - stations[0].transform.position).normalized); // vector looking at the next control point
 
-        for (int i = 0; i < stations.Length; i++)
+        for (int i = 0; i < stations.Count; i++)
             {
                 int nextIdx = GetLoopIdx(i+1);
-
-                Debug.Log("Current: " + i.ToString() + " Next: " + nextIdx.ToString());
 
                 Vector3[] p = new Vector3[] { stations[i].transform.position, 
                                               stations[i].postControl.transform.position,
@@ -112,12 +151,12 @@ public class TrainTrack : MonoBehaviour
 
     public int GetLoopIdx(int i)
     {
-        return (i + stations.Length) % stations.Length;
+        return (i + stations.Count) % stations.Count;
     }
 
     void SetAllStationControlPoints()
     {
-        for (int i = 0; i < stations.Length; i++)
+        for (int i = 0; i < stations.Count; i++)
         {
             SetStationControlPoints(i);
         }
@@ -136,9 +175,12 @@ public class TrainTrack : MonoBehaviour
         dir = prevOffset - postOffset;
         dir.Normalize();
 
+        stations[stationIdx].transform.forward = dir * -0.5f;
+
         stations[stationIdx].preControl.transform.position = currStation + dir * prevOffset.magnitude * 0.5f;
         stations[stationIdx].postControl.transform.position = currStation + dir * -postOffset.magnitude * 0.5f;
 
+        
     }
 }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrainOperator : MonoBehaviour
 {
-    public Transform train;
+    public Transform carriage;
     public TrainTrack track;
     public float speed;
 
@@ -13,16 +13,30 @@ public class TrainOperator : MonoBehaviour
     private float distanceToNextStation;
     private float distanceRemaining;
 
+    public Transform nextCarriage;
+    public bool moving = false;
+    public float distToNextCarriage = 1f;
+    public float totalDistTravelled = 0f;
+
     private void Start()
     {
-        train.position = track.stations[currentStationIdx].transform.position;
+        carriage.position = track.stations[currentStationIdx].transform.position;
         distanceToNextStation = track.distanceToNextStation[currentStationIdx];
-        Debug.Log(distanceToNextStation.ToString());
         nextStationIdx = track.GetLoopIdx(currentStationIdx + 1);
     }
 
     private void Update()
     {
+        if (!moving)
+        {
+            return;
+        }
+
+        totalDistTravelled += speed * Time.deltaTime;
+        if (totalDistTravelled >= distToNextCarriage && nextCarriage != null && !nextCarriage.GetComponent<TrainOperator>().moving)
+        {
+            nextCarriage.GetComponent<TrainOperator>().moving = true;
+        }
 
         if (distanceRemaining <= 0)
         {
@@ -36,13 +50,13 @@ public class TrainOperator : MonoBehaviour
             distanceRemaining -= speed * Time.deltaTime;
             float t = (distanceToNextStation - distanceRemaining) / distanceToNextStation;
 
-            train.position = Bezier.EvaluateCubic(track.stations[currentStationIdx].transform.position,
+            carriage.position = Bezier.EvaluateCubic(track.stations[currentStationIdx].transform.position,
                                                   track.stations[currentStationIdx].postControl.transform.position,
                                                   track.stations[nextStationIdx].preControl.transform.position,
                                                   track.stations[nextStationIdx].transform.position, 
                                                   t);
-            
-            train.forward = Bezier.TangentCubic(track.stations[currentStationIdx].transform.position,
+
+            carriage.forward = Bezier.TangentCubic(track.stations[currentStationIdx].transform.position,
                                                   track.stations[currentStationIdx].postControl.transform.position,
                                                   track.stations[nextStationIdx].preControl.transform.position,
                                                   track.stations[nextStationIdx].transform.position,
@@ -50,6 +64,7 @@ public class TrainOperator : MonoBehaviour
 
             
         }
+
     }
 
 }
