@@ -20,6 +20,7 @@ public class TrainTrack : MonoBehaviour
     public float[] distanceToNextStation;
     public Transform stationParent;
     public GameObject stationPrefab;
+    public StationNameGenerator nameGen;
 
     [Header("Track")]
     public float spacing = 0.1f;
@@ -77,6 +78,7 @@ public class TrainTrack : MonoBehaviour
             g.transform.position = (origin + dir * Random.Range(10f, 20f)) + (Vector3.up * Random.Range(0f, 10f));
             stations.Add(g.GetComponent<Station>());
             dir = Quaternion.Euler(0, 360f / numStations, 0) * dir;
+            stations[i].stationName = nameGen.GenerateName();
         }
 
     }
