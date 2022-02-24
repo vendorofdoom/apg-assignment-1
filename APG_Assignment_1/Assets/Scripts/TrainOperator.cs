@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TrainOperator : MonoBehaviour
 {
-    public TrainTrack tt;
+    public TrainTrack track;
     public float speed;
 
     public GameObject locomotivePrefab;
-    public GameObject carriagePrefab;
+    public GameObject[] carriagePrefabs;
 
     [Range(1, 8)]
     public int numCarriages = 1;
@@ -41,7 +41,7 @@ public class TrainOperator : MonoBehaviour
             }
             else
             {
-                carriageObj = GameObject.Instantiate(carriagePrefab, transform);
+                carriageObj = GameObject.Instantiate(carriagePrefabs[Random.Range(0, carriagePrefabs.Length)], transform);
             }
 
             carriages[i] = carriageObj.GetComponent<Transform>();
@@ -49,7 +49,7 @@ public class TrainOperator : MonoBehaviour
             t[i] = startT;
 
             // place the game object
-            carriages[i].position = tt.bezierLoop.AnchorPoint(0);
+            carriages[i].position = track.bezierLoop.AnchorPoint(0);
 
             startT += carriageSpacing;
         }
@@ -72,7 +72,7 @@ public class TrainOperator : MonoBehaviour
 
             Vector3 position;
             Vector3 forward;
-            tt.bezierLoop.PosAndForwardForDistance(t[i], out position, out forward);
+            track.bezierLoop.PosAndForwardForDistance(t[i], out position, out forward);
 
             carriages[i].position = position;
             carriages[i].forward = forward;

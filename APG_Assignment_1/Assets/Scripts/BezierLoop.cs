@@ -19,6 +19,16 @@ public class BezierLoop
     public float totalDist;
 
 
+    public BezierLoop(int numAnchors, float minDist, float maxDist, float maxHeight)
+    {
+        anchors = new Vector3[numAnchors];
+        controlPoints = new Vector3[numAnchors * 2];
+
+        PositionAnchors(numAnchors, minDist, maxDist, maxHeight);
+        PositionAllControlPoints();
+        SampleCurves();
+    }
+
     public Vector3 AnchorPoint(int i)
     {
         return anchors[LoopIdx(i)];
@@ -34,24 +44,15 @@ public class BezierLoop
         return controlPoints[2 * LoopIdx(i) + 1];
     }
 
-    public BezierLoop(int numAnchors)
-    {
-        anchors = new Vector3[numAnchors];
-        controlPoints = new Vector3[numAnchors * 2];
 
-        PositionAnchors(numAnchors);
-        PositionAllControlPoints();
-        SampleCurves();
-    }
-
-    private void PositionAnchors(int numAnchors)
+    private void PositionAnchors(int numAnchors, float minDist, float maxDist, float maxHeight)
     {
         Vector3 origin = Vector3.zero;
         Vector3 dir = Vector3.forward;
 
         for (int i = 0; i < numAnchors; i++)
         {
-            Vector3 a = (origin + dir * Random.Range(10f, 20f)) + (Vector3.up * Random.Range(0f, 10f));
+            Vector3 a = (origin + dir * Random.Range(minDist, maxDist)) + (Vector3.up * Random.Range(0f, maxHeight));
             anchors[i] = a;
             dir = Quaternion.Euler(0, 360f / numAnchors, 0) * dir;
         }

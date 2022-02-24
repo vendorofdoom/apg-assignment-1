@@ -4,9 +4,5 @@ using UnityEngine;
 
 public class Station : MonoBehaviour
 {
-    public Transform preControl;
-    public Transform postControl;
-
     public string stationName;
-
 }
