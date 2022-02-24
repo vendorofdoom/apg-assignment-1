@@ -19,7 +19,7 @@ public class StationNameGenerator : MonoBehaviour
         }
         else if (picker > 0.25f && picker <= 0.5f)
         {
-            return prefixes[Random.Range(0, prefixes.Count)] + suffixes[Random.Range(0, suffixes.Count)] + places[Random.Range(0, places.Count)];
+            return prefixes[Random.Range(0, prefixes.Count)] + suffixes[Random.Range(0, suffixes.Count)] + " " + places[Random.Range(0, places.Count)];
         }
         else
         {

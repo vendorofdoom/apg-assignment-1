@@ -37,6 +37,6 @@ public static class Bezier
         P += c * 3 * (2 * tu - tt);
         P += d * 3 * tt;
 
-        return P.normalized;
+        return P;
     }
 }

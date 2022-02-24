@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrainOperator : MonoBehaviour
 {
-    public TrainTrack track;
+    public TrainTrack tt;
     public float speed;
 
     public GameObject locomotivePrefab;
@@ -19,6 +19,9 @@ public class TrainOperator : MonoBehaviour
     private int[] toStationIdx;
     private float[] totalDist;
     private float[] t;
+
+    [Header("Announcement Board")]
+    public TMPro.TextMeshProUGUI announcements;
 
     private void Start()
     {
@@ -52,12 +55,12 @@ public class TrainOperator : MonoBehaviour
 
             // which station is the carriage inbetween?
             fromStationIdx[i] = 0;
-            toStationIdx[i] = track.GetLoopIdx(fromStationIdx[i] + 1);
-            totalDist[i] = track.distanceToNextStation[fromStationIdx[i]];
+            toStationIdx[i] = tt.bezierLoop.LoopIdx(fromStationIdx[i] + 1);
+            totalDist[i] = tt.bezierLoop.segmentDists[fromStationIdx[i]];
             t[i] = startT;
 
             // place the game object
-            carriages[i].position = track.stations[fromStationIdx[i]].transform.position;
+            carriages[i].position = tt.bezierLoop.anchors[fromStationIdx[i]].anchorPos;
 
             startT += 0.1f; // TODO: find a better way to space carriages? maybe calc distance? :/ just hard-coded for now...
         }
@@ -76,32 +79,35 @@ public class TrainOperator : MonoBehaviour
 
         for (int i = 0; i < numCarriages; i++)
         {
-            if (t[i] >= 1)
+            if (t[i] >= 1f)
             {
                 fromStationIdx[i] = toStationIdx[i];
-                toStationIdx[i] = track.GetLoopIdx(fromStationIdx[i] + 1);
-                totalDist[i] = track.distanceToNextStation[fromStationIdx[i]];
+                toStationIdx[i] = tt.bezierLoop.LoopIdx(fromStationIdx[i] + 1);
+                totalDist[i] = tt.bezierLoop.segmentDists[fromStationIdx[i]];
                 t[i] = 0f;
             }
             else
             {
+
                 t[i] += (speed * Time.deltaTime) / totalDist[i];
 
-                carriages[i].position = Bezier.EvaluateCubic(track.stations[fromStationIdx[i]].transform.position,
-                                                      track.stations[fromStationIdx[i]].postControl.transform.position,
-                                                      track.stations[toStationIdx[i]].preControl.transform.position,
-                                                      track.stations[toStationIdx[i]].transform.position,
-                                                      t[i]);
 
-                carriages[i].forward = Bezier.TangentCubic(track.stations[fromStationIdx[i]].transform.position,
-                                                      track.stations[fromStationIdx[i]].postControl.transform.position,
-                                                      track.stations[toStationIdx[i]].preControl.transform.position,
-                                                      track.stations[toStationIdx[i]].transform.position,
-                                                      t[i]);
 
+                carriages[i].position = Bezier.EvaluateCubic(tt.bezierLoop.anchors[fromStationIdx[i]].anchorPos,
+                                                             tt.bezierLoop.anchors[fromStationIdx[i]].postControlPointPos,
+                                                             tt.bezierLoop.anchors[toStationIdx[i]].prevControlPointPos,
+                                                             tt.bezierLoop.anchors[toStationIdx[i]].anchorPos,
+                                                             t[i]);
+
+                carriages[i].forward = Bezier.TangentCubic(tt.bezierLoop.anchors[fromStationIdx[i]].anchorPos,
+                                                             tt.bezierLoop.anchors[fromStationIdx[i]].postControlPointPos,
+                                                             tt.bezierLoop.anchors[toStationIdx[i]].prevControlPointPos,
+                                                             tt.bezierLoop.anchors[toStationIdx[i]].anchorPos,
+                                                             t[i]);
 
             }
         }
+
 
     }
 
