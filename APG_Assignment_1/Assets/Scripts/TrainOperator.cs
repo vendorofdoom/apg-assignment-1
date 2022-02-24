@@ -1,31 +1,102 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+// TODO: Move service stuff out into it's own config?
 
 public class TrainOperator : MonoBehaviour
 {
     public TrainTrack track;
-    public float speed;
+    private float speed;
+    public Slider speedSlider;
 
     public GameObject locomotivePrefab;
     public GameObject[] carriagePrefabs;
 
-    [Range(1, 8)]
-    public int numCarriages = 1;
-    public float carriageSpacing = 1.2f;
+    private int numCarriages;
+    private float carriageSpacing = 2f;
 
-    [SerializeField]
     private Transform[] carriages;
     private float[] t;
+    private TrainService service;
 
-    private void Start()
+
+
+    public void SpeedSliderChange()
     {
+        speed = speedSlider.value;
+    }
+
+    public void LocalService()
+    {
+        UpdateService(TrainService.Local);
+    }
+
+    public void NationalService()
+    {
+        UpdateService(TrainService.National);
+    }
+
+    public void SleeperService()
+    {
+        UpdateService(TrainService.Sleeper);
+    }
+
+    private void UpdateService(TrainService tService)
+    {
+        DestroyTrain();
+        service = tService;
         SetupTrain();
     }
 
+    public enum TrainService
+    {
+        Local,
+        National,
+        Sleeper
+    }
+
+    private int CarriageMin()
+    {
+        switch (service)
+        {
+            case TrainService.Local:
+                return 3;
+            case TrainService.National:
+                return 6;
+            case TrainService.Sleeper:
+                return 11;
+            default:
+                return 1;
+        }
+    }
+
+    private int CarriageMax()
+    {
+        switch (service) {
+            case TrainService.Local:
+                return 5;
+            case TrainService.National:
+                return 10;
+            case TrainService.Sleeper:
+                return 20;
+            default:
+                return 10;
+        }
+    }
+
+
+    private void Start()
+    {
+        speed = speedSlider.value;
+        SetupTrain();
+    }
 
     private void SetupTrain()
     {
+        numCarriages = Random.Range(CarriageMin(), CarriageMax());
+
         carriages = new Transform[numCarriages];
         t = new float[numCarriages];
 

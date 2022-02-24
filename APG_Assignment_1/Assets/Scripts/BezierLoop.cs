@@ -120,7 +120,7 @@ public class BezierLoop
             float estimatedCurveLength = Vector3.Distance(p[0], p[3]) + (controlNetLength * 0.5f);
             segmentDists[i] = estimatedCurveLength;
             totalDist += estimatedCurveLength;
-            Debug.Log("Segment: " + i.ToString() + " Distance: " + estimatedCurveLength.ToString());
+            //Debug.Log("Segment: " + i.ToString() + " Distance: " + estimatedCurveLength.ToString());
             int divisions = Mathf.CeilToInt(estimatedCurveLength * resolution * 10); // some const 10 
 
             float t = 0;
@@ -145,7 +145,7 @@ public class BezierLoop
 
         sampledPoints = evenlySpacedPoints.ToArray();
         sampledDirs = evenlySpacedForwards.ToArray();
-        Debug.Log("Total Dist: " + totalDist.ToString());
+        //Debug.Log("Total Dist: " + totalDist.ToString());
 
     }
 

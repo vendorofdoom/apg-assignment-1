@@ -17,16 +17,21 @@ public class TrainTrack : MonoBehaviour
     public BezierLoop bezierLoop;
 
     [Header("Stations")]
-    public int numStations;
     public Transform stationParent;
     public GameObject stationPrefab;
-
+    public StationNameGenerator stationNameGen;
+    public List<Station> stations;
+    public List<int> stationPointIdx; // station distance around the track counting from the first evenly spaced point
+ 
     [Header("Track")]
     public Transform trackParent;
     public GameObject trackPrefab;
 
     [Header("Tunnels")]
     public GameObject tunnelPrefab;
+    public bool drawTunnels = false;
+
+    public LayerMask noOverlapMask;
 
     private void Awake()
     {
@@ -59,6 +64,8 @@ public class TrainTrack : MonoBehaviour
 
     private void DrawTrack()
     {
+        stations = new List<Station>();
+        stationPointIdx = new List<int>();
 
         bool placeTunnelPiece = false;
         int tunnelLength = 0;
@@ -70,35 +77,73 @@ public class TrainTrack : MonoBehaviour
             g.transform.localScale *= (bezierLoop.spacing * 2f);
             g.transform.forward = bezierLoop.sampledDirs[i];
 
-            if (placeTunnelPiece)
+            if (drawTunnels)
             {
-               
-                if (tunnelLength >= 0)
+                if (placeTunnelPiece)
                 {
-                    GameObject t = GameObject.Instantiate(tunnelPrefab, trackParent);
-                    t.transform.position = bezierLoop.sampledPoints[i];
-                    t.transform.localScale *= (bezierLoop.spacing * 2f);
-                    t.transform.forward = bezierLoop.sampledDirs[i];
-                    tunnelLength--;
+
+                    if (tunnelLength >= 0)
+                    {
+                        GameObject t = GameObject.Instantiate(tunnelPrefab, trackParent);
+                        t.transform.position = bezierLoop.sampledPoints[i];
+                        t.transform.localScale *= (bezierLoop.spacing * 2f);
+                        t.transform.forward = bezierLoop.sampledDirs[i];
+                        tunnelLength--;
+                    }
+                    else
+                    {
+                        placeTunnelPiece = false;
+                    }
+
                 }
                 else
                 {
-                    placeTunnelPiece = false;
+                    if (Random.Range(0f, 1f) >= 0.98f)
+                    {
+                        placeTunnelPiece = true;
+                        tunnelLength = Random.Range(5, 10); // make this a parameter?
+                    }
                 }
-
             }
-            else
+
+            
+            if (Random.Range(0f, 1f) >= 0.9f 
+                && (Vector3.Dot(g.transform.up.normalized, Vector3.up) >= 0.95f)) // only place a station if the spot is relatively "upright"
             {
-                if (Random.Range(0f, 1f) >= 0.98f)
+
+                bool tooCloseToAnotherStation = false;
+                float minDist = 20f; // TODO: parameterise?
+
+                // I couldn't get collider checks working here? Maybe something to do with physics calcs if stuff being placed in the same frame?
+                foreach (Station s in stations) 
                 {
-                    placeTunnelPiece = true;
-                    tunnelLength = Random.Range(5, 10); // make this a parameter?
+                    if (Vector3.Distance(s.transform.position, bezierLoop.sampledPoints[i]) < minDist)
+                    {
+                        tooCloseToAnotherStation = true;
+                        break;
+                    }
+                }
+
+                if (!tooCloseToAnotherStation)
+                {
+                    BuildAStation(bezierLoop.sampledPoints[i], bezierLoop.sampledDirs[i]);
+                    stationPointIdx.Add(i);
                 }
             }
-
-
 
         }
+    }
+
+    private void BuildAStation(Vector3 pos, Vector3 forward)
+    {
+        GameObject s = GameObject.Instantiate(stationPrefab, stationParent);
+        s.transform.position = pos;
+        s.transform.localScale *= (bezierLoop.spacing * 2f);
+        s.transform.forward = forward;
+        string stationName = stationNameGen.GenerateName();
+        s.name = stationName + " Station";
+        s.GetComponent<Station>().stationName = stationName;
+        stations.Add(s.GetComponent<Station>());
     }
 
 }

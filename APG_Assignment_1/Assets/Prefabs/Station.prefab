@@ -93,9 +93,10 @@ GameObject:
   - component: {fileID: 3439132823252321803}
   - component: {fileID: 5551697984468823243}
   - component: {fileID: 1503832760976547649}
-  m_Layer: 0
+  - component: {fileID: 1510032835784933525}
+  m_Layer: 6
   m_Name: Station
-  m_TagString: Untagged
+  m_TagString: Station
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,8 +180,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533114fde551c684ebde302bee45989b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preControl: {fileID: 6648921351090272446}
-  postControl: {fileID: 6648921350779166150}
+  stationName: 
+--- !u!65 &1510032835784933525
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503832760976547654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.3037066, y: 3.2241297, z: 3.3236005}
+  m_Center: {x: -2.5125945, y: 1.243382, z: -0.00000011920929}
 --- !u!1 &6383398129866870806
 GameObject:
   m_ObjectHideFlags: 0
