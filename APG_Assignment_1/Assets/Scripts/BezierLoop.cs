@@ -16,6 +16,7 @@ public class BezierLoop
     public Vector3[] sampledPoints;
     public Vector3[] sampledDirs;
     public float[] segmentDists;
+    public float totalDist;
 
 
     public Vector3 AnchorPoint(int i)
@@ -91,6 +92,7 @@ public class BezierLoop
     private void SampleCurves()
     {
         segmentDists = new float[anchors.Length];
+        totalDist = 0f;
 
         if (anchors.Length < 2)
         {
@@ -116,6 +118,8 @@ public class BezierLoop
             float controlNetLength = Vector3.Distance(p[0], p[1]) + Vector3.Distance(p[1], p[2]) + Vector3.Distance(p[2], p[3]);
             float estimatedCurveLength = Vector3.Distance(p[0], p[3]) + (controlNetLength * 0.5f);
             segmentDists[i] = estimatedCurveLength;
+            totalDist += estimatedCurveLength;
+            Debug.Log("Segment: " + i.ToString() + " Distance: " + estimatedCurveLength.ToString());
             int divisions = Mathf.CeilToInt(estimatedCurveLength * resolution * 10); // some const 10 
 
             float t = 0;
@@ -140,18 +144,41 @@ public class BezierLoop
 
         sampledPoints = evenlySpacedPoints.ToArray();
         sampledDirs = evenlySpacedForwards.ToArray();
+        Debug.Log("Total Dist: " + totalDist.ToString());
 
     }
 
-
-
-    public Vector3[] PosAndForwardForTime(float t)
+    public void PosAndForwardForTime(float t, out Vector3 position, out Vector3 forward)
     {
-        float totalT = 1f * anchors.Length;
+        float total = 1f * anchors.Length;
 
+        t = (t * total) % total;
 
-        return new Vector3[] { Vector3.one, Vector3.one };
+        int segmentIdx = Mathf.FloorToInt(t);
+
+        t -= segmentIdx;
+
+        position = Bezier.EvaluateCubic(AnchorPoint(segmentIdx), PostControlPoint(segmentIdx), PrevControlPoint(segmentIdx + 1), AnchorPoint(segmentIdx + 1), t);
+        forward = Bezier.TangentCubic(AnchorPoint(segmentIdx), PostControlPoint(segmentIdx), PrevControlPoint(segmentIdx + 1), AnchorPoint(segmentIdx + 1), t);
+    }
+
+    // writing this made me sad and confused
+    // TODO: it looks right visually but need to come back later and recheck
+    public void PosAndForwardForDistance(float d, out Vector3 position, out Vector3 forward)
+    {
+
+        d = d % totalDist; // handle if distance is greater than entire loop distance
+
+        float sampleSize = totalDist / sampledPoints.Length; // what is the approx. length of each, evenly spaced sample segment
+
+        int sampleIdx = Mathf.FloorToInt(d / sampleSize);
+
+        d = d % sampleSize;
+
+        position = Vector3.Lerp(sampledPoints[sampleIdx], sampledPoints[(sampleIdx + 1 + sampledPoints.Length) % sampledPoints.Length], d);
+        forward = Vector3.Lerp(sampledDirs[sampleIdx], sampledDirs[(sampleIdx + 1 + sampledDirs.Length) % sampledDirs.Length], d);
     }
 
 
 }
+

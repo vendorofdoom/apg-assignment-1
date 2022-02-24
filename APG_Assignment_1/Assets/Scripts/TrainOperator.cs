@@ -12,12 +12,10 @@ public class TrainOperator : MonoBehaviour
 
     [Range(1, 8)]
     public int numCarriages = 1;
+    public float carriageSpacing = 1.2f;
 
     [SerializeField]
     private Transform[] carriages;
-    private int[] fromStationIdx;
-    private int[] toStationIdx;
-    private float[] totalDist;
     private float[] t;
 
     private void Start()
@@ -29,9 +27,6 @@ public class TrainOperator : MonoBehaviour
     private void SetupTrain()
     {
         carriages = new Transform[numCarriages];
-        fromStationIdx = new int[numCarriages];
-        toStationIdx = new int[numCarriages];
-        totalDist = new float[numCarriages];
         t = new float[numCarriages];
 
         float startT = 0f;
@@ -48,18 +43,15 @@ public class TrainOperator : MonoBehaviour
             {
                 carriageObj = GameObject.Instantiate(carriagePrefab, transform);
             }
+
             carriages[i] = carriageObj.GetComponent<Transform>();
 
-            // which station is the carriage inbetween?
-            fromStationIdx[i] = 0;
-            toStationIdx[i] = tt.bezierLoop.LoopIdx(fromStationIdx[i] + 1);
-            totalDist[i] = tt.bezierLoop.segmentDists[fromStationIdx[i]];
             t[i] = startT;
 
             // place the game object
-            carriages[i].position = tt.bezierLoop.anchors[fromStationIdx[i]];
+            carriages[i].position = tt.bezierLoop.AnchorPoint(0);
 
-            startT += 0.1f; // TODO: find a better way to space carriages? maybe calc distance? :/ just hard-coded for now...
+            startT += carriageSpacing;
         }
 
 
@@ -76,36 +68,15 @@ public class TrainOperator : MonoBehaviour
 
         for (int i = 0; i < numCarriages; i++)
         {
-            if (t[i] >= 1f)
-            {
-                fromStationIdx[i] = toStationIdx[i];
-                toStationIdx[i] = tt.bezierLoop.LoopIdx(fromStationIdx[i] + 1);
-                totalDist[i] = tt.bezierLoop.segmentDists[fromStationIdx[i]];
-                t[i] = 0f;
-            }
-            else
-            {
+            t[i] += Time.deltaTime * speed;
 
-                t[i] += (speed * Time.deltaTime) / totalDist[i];
+            Vector3 position;
+            Vector3 forward;
+            tt.bezierLoop.PosAndForwardForDistance(t[i], out position, out forward);
 
-
-
-                carriages[i].position = Bezier.EvaluateCubic(tt.bezierLoop.AnchorPoint(fromStationIdx[i]),
-                                                             tt.bezierLoop.PostControlPoint(fromStationIdx[i]),
-                                                             tt.bezierLoop.PrevControlPoint(toStationIdx[i]),
-                                                             tt.bezierLoop.AnchorPoint(toStationIdx[i]),
-                                                             t[i]);
-
-                carriages[i].forward = Bezier.TangentCubic(tt.bezierLoop.AnchorPoint(fromStationIdx[i]),
-                                                             tt.bezierLoop.PostControlPoint(fromStationIdx[i]),
-                                                             tt.bezierLoop.PrevControlPoint(toStationIdx[i]),
-                                                             tt.bezierLoop.AnchorPoint(toStationIdx[i]),
-                                                             t[i]);
-
-            }
+            carriages[i].position = position;
+            carriages[i].forward = forward;
         }
-
-
     }
 
     private void DestroyTrain()
