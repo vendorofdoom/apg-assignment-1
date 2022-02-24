@@ -41,7 +41,6 @@ public class TrainTrack : MonoBehaviour
         }
     }
 
-
     private void ClearTracksAndStations()
     {
         foreach(Transform child in trackParent)

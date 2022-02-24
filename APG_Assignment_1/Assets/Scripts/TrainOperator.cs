@@ -20,9 +20,6 @@ public class TrainOperator : MonoBehaviour
     private float[] totalDist;
     private float[] t;
 
-    [Header("Announcement Board")]
-    public TMPro.TextMeshProUGUI announcements;
-
     private void Start()
     {
         SetupTrain();
@@ -60,7 +57,7 @@ public class TrainOperator : MonoBehaviour
             t[i] = startT;
 
             // place the game object
-            carriages[i].position = tt.bezierLoop.anchors[fromStationIdx[i]].anchorPos;
+            carriages[i].position = tt.bezierLoop.anchors[fromStationIdx[i]];
 
             startT += 0.1f; // TODO: find a better way to space carriages? maybe calc distance? :/ just hard-coded for now...
         }
@@ -93,16 +90,16 @@ public class TrainOperator : MonoBehaviour
 
 
 
-                carriages[i].position = Bezier.EvaluateCubic(tt.bezierLoop.anchors[fromStationIdx[i]].anchorPos,
-                                                             tt.bezierLoop.anchors[fromStationIdx[i]].postControlPointPos,
-                                                             tt.bezierLoop.anchors[toStationIdx[i]].prevControlPointPos,
-                                                             tt.bezierLoop.anchors[toStationIdx[i]].anchorPos,
+                carriages[i].position = Bezier.EvaluateCubic(tt.bezierLoop.AnchorPoint(fromStationIdx[i]),
+                                                             tt.bezierLoop.PostControlPoint(fromStationIdx[i]),
+                                                             tt.bezierLoop.PrevControlPoint(toStationIdx[i]),
+                                                             tt.bezierLoop.AnchorPoint(toStationIdx[i]),
                                                              t[i]);
 
-                carriages[i].forward = Bezier.TangentCubic(tt.bezierLoop.anchors[fromStationIdx[i]].anchorPos,
-                                                             tt.bezierLoop.anchors[fromStationIdx[i]].postControlPointPos,
-                                                             tt.bezierLoop.anchors[toStationIdx[i]].prevControlPointPos,
-                                                             tt.bezierLoop.anchors[toStationIdx[i]].anchorPos,
+                carriages[i].forward = Bezier.TangentCubic(tt.bezierLoop.AnchorPoint(fromStationIdx[i]),
+                                                             tt.bezierLoop.PostControlPoint(fromStationIdx[i]),
+                                                             tt.bezierLoop.PrevControlPoint(toStationIdx[i]),
+                                                             tt.bezierLoop.AnchorPoint(toStationIdx[i]),
                                                              t[i]);
 
             }
