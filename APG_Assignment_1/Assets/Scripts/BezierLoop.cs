@@ -172,14 +172,22 @@ public class BezierLoop
 
         float sampleSize = totalDist / sampledPoints.Length; // what is the approx. length of each, evenly spaced sample segment
 
-        int sampleIdx = Mathf.FloorToInt(d / sampleSize);
+        int sampleIdx = Mathf.FloorToInt(d / sampleSize); // which segments of track are we between
 
-        d = d % sampleSize;
+        d = (d % sampleSize) / sampleSize; // how far between the two segments are we?
 
         position = Vector3.Lerp(sampledPoints[sampleIdx], sampledPoints[(sampleIdx + 1 + sampledPoints.Length) % sampledPoints.Length], d);
         forward = Vector3.Lerp(sampledDirs[sampleIdx], sampledDirs[(sampleIdx + 1 + sampledDirs.Length) % sampledDirs.Length], d);
     }
 
+
+    private int GetSampledPointForDist(float d)
+    {
+        d = d % totalDist;
+        float sampleSize = totalDist / sampledPoints.Length;
+        int sampleIdx = Mathf.FloorToInt(d / sampleSize);
+        return sampleIdx;
+    }
 
 }
 

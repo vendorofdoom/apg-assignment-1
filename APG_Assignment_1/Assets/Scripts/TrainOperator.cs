@@ -19,7 +19,7 @@ public class TrainOperator : MonoBehaviour
 
     private Transform[] carriages;
     private float[] t;
-    private TrainService service;
+    public TrainService service;
 
 
 

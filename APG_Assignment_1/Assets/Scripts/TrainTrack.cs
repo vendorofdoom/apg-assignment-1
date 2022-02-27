@@ -146,6 +146,11 @@ public class TrainTrack : MonoBehaviour
         stations.Add(s.GetComponent<Station>());
     }
 
+    public void CheckForAnnouncements(float d)
+    {
+
+    }
+
 }
 
 

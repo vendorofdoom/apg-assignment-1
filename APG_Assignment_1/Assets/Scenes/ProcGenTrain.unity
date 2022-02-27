@@ -291,9 +291,9 @@ RectTransform:
   m_Father: {fileID: 777771840}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 60, y: -105}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &60383470
@@ -581,9 +581,9 @@ RectTransform:
   m_Father: {fileID: 777771840}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 60, y: -75}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &440702730
@@ -714,9 +714,9 @@ RectTransform:
   m_Father: {fileID: 777771840}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 60, y: -45}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &607153625
@@ -1526,7 +1526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1315842536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1642,9 +1642,9 @@ RectTransform:
   m_Father: {fileID: 777771840}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 60, y: -15}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1402669258
@@ -1776,8 +1776,8 @@ RectTransform:
   m_Father: {fileID: 1865028928}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1986,7 +1986,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2285,10 +2285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd73848caed9754f9850280e98e8b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numStations: 8
   stationParent: {fileID: 1221125539}
   stationPrefab: {fileID: 1503832760976547654, guid: ab8eb6c3a3a49d849bca29b03c401f4c, type: 3}
   stationNameGen: {fileID: 1738029929}
+  stations: []
+  stationPointIdx: 
   trackParent: {fileID: 897301799}
   trackPrefab: {fileID: 8158555397119129867, guid: a6eee0897db0ae6418226dc9d5ed19cf, type: 3}
   tunnelPrefab: {fileID: 453812945309549278, guid: de9d5d48eb8f85042aca1054fa76d78a, type: 3}
@@ -2331,7 +2332,7 @@ MonoBehaviour:
   - Old
   - New
   prefixes:
-  - Kess
+  - Kes
   - Crow
   - Bird
   - Eag
@@ -2685,3 +2686,4 @@ MonoBehaviour:
   - {fileID: 3580280008788206120, guid: fba1c7ed5bcf9fa4980467b393737cea, type: 3}
   - {fileID: 3580280008788206120, guid: 599ac38bc27f2024f8daca24add19c6a, type: 3}
   - {fileID: 3580280008788206120, guid: c8e035a77160add47a21035520b772f4, type: 3}
+  service: 0
