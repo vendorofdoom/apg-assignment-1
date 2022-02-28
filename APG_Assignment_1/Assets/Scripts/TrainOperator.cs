@@ -63,7 +63,7 @@ public class TrainOperator : MonoBehaviour
     private void SetupTrain()
     {
         numCarriages = Random.Range(trainService.minCarriages, trainService.maxCarriages);
-
+        Debug.Log(numCarriages);
         carriages = new Transform[numCarriages];
         t = new float[numCarriages];
 

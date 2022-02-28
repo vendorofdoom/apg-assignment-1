@@ -9,6 +9,8 @@ public class TrainService : MonoBehaviour
     public int minCarriages;
     public int maxCarriages;
 
+    public AudioSource chooChoo;
+
     public ServiceType Service
     {
         get
@@ -41,16 +43,19 @@ public class TrainService : MonoBehaviour
             case ServiceType.Local:
                 minCarriages = 3;
                 maxCarriages = 5;
+                chooChoo.pitch = Random.Range(1f, 1.2f);
                 break;
 
             case ServiceType.National:
                 minCarriages = 6;
                 maxCarriages = 5;
+                chooChoo.pitch = Random.Range(0.7f, 1f);
                 break;
 
             case ServiceType.Sleeper:
                 minCarriages = 11;
                 maxCarriages = 20;
+                chooChoo.pitch = Random.Range(0.5f, 0.7f);
                 break;
 
             default:
