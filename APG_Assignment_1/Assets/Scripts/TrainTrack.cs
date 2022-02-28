@@ -33,20 +33,27 @@ public class TrainTrack : MonoBehaviour
     private void Awake()
     {
         TrackStyle = Style.Gentle;
-        Configure();
-        bezierLoop = new BezierLoop(maxAnchorPoints, minDist, maxDist, maxHeight);
-        DrawTrack();
+        //Configure();
+        //bezierLoop = new BezierLoop(maxAnchorPoints, minDist, maxDist, maxHeight);
+        //DrawTrack();
     }
 
-    private void Update()
+    public void GentleTrack()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            RegenerateTrack();
-        }
+        TrackStyle = TrainTrack.Style.Gentle;
     }
 
-    private void RegenerateTrack()
+    public void ModerateTrack()
+    {
+        TrackStyle = TrainTrack.Style.Moderate;
+    }
+
+    public void WackyTrack()
+    {
+        TrackStyle = TrainTrack.Style.Wacky;
+    }
+
+    public void RegenerateTrack()
     {
         ClearTracksAndStations();
         Configure();
@@ -64,6 +71,7 @@ public class TrainTrack : MonoBehaviour
         {
             style = value;
             Configure();
+            RegenerateTrack();
         }
     }
 
@@ -139,7 +147,7 @@ public class TrainTrack : MonoBehaviour
                 if (placeTunnelPiece)
                 {
 
-                    if (tunnelLength >= 0)
+                    if (tunnelLength > 0)
                     {
                         GameObject t = GameObject.Instantiate(tunnelPrefab, trackParent);
                         t.transform.position = bezierLoop.sampledPoints[i];
@@ -155,10 +163,11 @@ public class TrainTrack : MonoBehaviour
                 }
                 else
                 {
-                    if (Random.Range(0f, 1f) >= 0.98f)
+                    if (Random.Range(0f, 1f) >= 0.995f)
                     {
                         placeTunnelPiece = true;
-                        tunnelLength = Random.Range(5, 10); // make this a parameter?
+                        //tunnelLength = Random.Range(1, 5); // make this a parameter?
+                        tunnelLength = 1;
                     }
                 }
             }

@@ -63,7 +63,7 @@ public class TrainOperator : MonoBehaviour
     private void SetupTrain()
     {
         numCarriages = Random.Range(trainService.minCarriages, trainService.maxCarriages);
-        Debug.Log(numCarriages);
+        //Debug.Log(numCarriages);
         carriages = new Transform[numCarriages];
         t = new float[numCarriages];
 
@@ -102,14 +102,14 @@ public class TrainOperator : MonoBehaviour
         AnnounceNextStop(-1); // assume we start at the first station?
     }
 
+    public void RegenerateTrain()
+    {
+        DestroyTrain();
+        SetupTrain();
+    }
+
     private void Update()
     {
-
-        if (Input.GetKeyDown("space"))
-        {
-            DestroyTrain();
-            SetupTrain();
-        }
 
         for (int i = 0; i < numCarriages; i++)
         {
