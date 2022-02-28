@@ -31,8 +31,6 @@ public class TrainTrack : MonoBehaviour
     public GameObject tunnelPrefab;
     public bool drawTunnels = false;
 
-    public LayerMask noOverlapMask;
-
     private void Awake()
     {
         bezierLoop = new BezierLoop(15, 10, 20, 10);
@@ -146,9 +144,12 @@ public class TrainTrack : MonoBehaviour
         stations.Add(s.GetComponent<Station>());
     }
 
-    public void CheckForAnnouncements(float d)
+    public int StationAtDistance(float d)
     {
+        int sampleIdx = bezierLoop.SampleIndex(d);
+        int stationIdx = stationPointIdx.FindIndex(x => (x == sampleIdx));
 
+        return stationIdx;
     }
 
 }

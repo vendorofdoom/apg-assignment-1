@@ -8,18 +8,23 @@ using UnityEngine.UI;
 public class TrainOperator : MonoBehaviour
 {
     public TrainTrack track;
+
+    public TrainService service;
+
     private float speed;
     public Slider speedSlider;
 
     public GameObject locomotivePrefab;
     public GameObject[] carriagePrefabs;
-
     private int numCarriages;
     private float carriageSpacing = 2f;
-
     private Transform[] carriages;
+
+    public TMPro.TextMeshProUGUI announcements;
+
+    public CameraController camControl;
+
     private float[] t;
-    public TrainService service;
 
 
 
@@ -125,7 +130,8 @@ public class TrainOperator : MonoBehaviour
             startT += carriageSpacing;
         }
 
-
+        camControl.target = carriages[0];
+        AnnounceNextStop(-1); // assume we start at the first station?
     }
 
     private void Update()
@@ -148,6 +154,18 @@ public class TrainOperator : MonoBehaviour
             carriages[i].position = position;
             carriages[i].forward = forward;
         }
+
+        // Make announcement about next station
+        if (track.StationAtDistance(t[0]) > -1)
+        {
+            AnnounceNextStop(track.StationAtDistance(t[0]));
+        }
+    }
+
+    private void AnnounceNextStop(int currStationIdx)
+    {
+        int nextStationIdx = (currStationIdx + 1 + track.stations.Count) % track.stations.Count;
+        announcements.text = "Next stop: " + track.stations[nextStationIdx].stationName;
     }
 
     private void DestroyTrain()

@@ -163,8 +163,7 @@ public class BezierLoop
         forward = Bezier.TangentCubic(AnchorPoint(segmentIdx), PostControlPoint(segmentIdx), PrevControlPoint(segmentIdx + 1), AnchorPoint(segmentIdx + 1), t);
     }
 
-    // writing this made me sad and confused
-    // TODO: it looks right visually but need to come back later and recheck
+
     public void PosAndForwardForDistance(float d, out Vector3 position, out Vector3 forward)
     {
 
@@ -180,14 +179,16 @@ public class BezierLoop
         forward = Vector3.Lerp(sampledDirs[sampleIdx], sampledDirs[(sampleIdx + 1 + sampledDirs.Length) % sampledDirs.Length], d);
     }
 
-
-    private int GetSampledPointForDist(float d)
+    public int SampleIndex(float d)
     {
-        d = d % totalDist;
-        float sampleSize = totalDist / sampledPoints.Length;
-        int sampleIdx = Mathf.FloorToInt(d / sampleSize);
-        return sampleIdx;
+        d = d % totalDist; // handle if distance is greater than entire loop distance
+
+        float sampleSize = totalDist / sampledPoints.Length; // what is the approx. length of each, evenly spaced sample segment
+
+        return Mathf.FloorToInt( d / sampleSize); // which segments of track are we between
     }
 
+
+    
 }
 
