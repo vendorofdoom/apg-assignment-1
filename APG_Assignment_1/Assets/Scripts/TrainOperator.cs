@@ -8,25 +8,23 @@ using UnityEngine.UI;
 public class TrainOperator : MonoBehaviour
 {
     public TrainTrack track;
-
-    public TrainService service;
-
-    private float speed;
-    public Slider speedSlider;
+    public TrainService trainService;
 
     public GameObject locomotivePrefab;
     public GameObject[] carriagePrefabs;
+
+    [Header("Camera")]
+    public CameraFollow camFollow;
+    public CameraController camController;
+
+    public Slider speedSlider;
+    public TMPro.TextMeshProUGUI announcements;
+
     private int numCarriages;
     private float carriageSpacing = 2f;
     private Transform[] carriages;
-
-    public TMPro.TextMeshProUGUI announcements;
-
-    public CameraController camControl;
-
     private float[] t;
-
-
+    private float speed;
 
     public void SpeedSliderChange()
     {
@@ -35,60 +33,24 @@ public class TrainOperator : MonoBehaviour
 
     public void LocalService()
     {
-        UpdateService(TrainService.Local);
+        UpdateService(TrainService.ServiceType.Local);
     }
 
     public void NationalService()
     {
-        UpdateService(TrainService.National);
+        UpdateService(TrainService.ServiceType.National);
     }
 
     public void SleeperService()
     {
-        UpdateService(TrainService.Sleeper);
+        UpdateService(TrainService.ServiceType.Sleeper);
     }
 
-    private void UpdateService(TrainService tService)
+    private void UpdateService(TrainService.ServiceType tService)
     {
         DestroyTrain();
-        service = tService;
+        trainService.Service = tService;
         SetupTrain();
-    }
-
-    public enum TrainService
-    {
-        Local,
-        National,
-        Sleeper
-    }
-
-    private int CarriageMin()
-    {
-        switch (service)
-        {
-            case TrainService.Local:
-                return 3;
-            case TrainService.National:
-                return 6;
-            case TrainService.Sleeper:
-                return 11;
-            default:
-                return 1;
-        }
-    }
-
-    private int CarriageMax()
-    {
-        switch (service) {
-            case TrainService.Local:
-                return 5;
-            case TrainService.National:
-                return 10;
-            case TrainService.Sleeper:
-                return 20;
-            default:
-                return 10;
-        }
     }
 
 
@@ -100,7 +62,7 @@ public class TrainOperator : MonoBehaviour
 
     private void SetupTrain()
     {
-        numCarriages = Random.Range(CarriageMin(), CarriageMax());
+        numCarriages = Random.Range(trainService.minCarriages, trainService.maxCarriages);
 
         carriages = new Transform[numCarriages];
         t = new float[numCarriages];
@@ -114,6 +76,13 @@ public class TrainOperator : MonoBehaviour
             if (i == 0)
             {
                 carriageObj = GameObject.Instantiate(locomotivePrefab, transform);
+
+                camController.trainCam = carriageObj.GetComponentInChildren<Camera>();
+                if (camController.CamSetting != CameraController.CameraSetting.Train)
+                {
+                    camController.trainCam.enabled = false;
+                }
+
             }
             else
             {
@@ -124,13 +93,12 @@ public class TrainOperator : MonoBehaviour
 
             t[i] = startT;
 
-            // place the game object
             carriages[i].position = track.bezierLoop.AnchorPoint(0);
 
             startT += carriageSpacing;
         }
 
-        camControl.target = carriages[0];
+        camFollow.target = carriages[0];
         AnnounceNextStop(-1); // assume we start at the first station?
     }
 
@@ -163,9 +131,13 @@ public class TrainOperator : MonoBehaviour
     }
 
     private void AnnounceNextStop(int currStationIdx)
-    {
-        int nextStationIdx = (currStationIdx + 1 + track.stations.Count) % track.stations.Count;
-        announcements.text = "Next stop: " + track.stations[nextStationIdx].stationName;
+    { 
+        if (track.stations.Count > 0)
+        {
+            int nextStationIdx = (currStationIdx + 1 + track.stations.Count) % track.stations.Count;
+            announcements.text = "Next stop: " + track.stations[nextStationIdx].stationName;
+        }
+        
     }
 
     private void DestroyTrain()

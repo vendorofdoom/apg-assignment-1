@@ -2,52 +2,83 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Brackeys Smooth Camera Follow: https://www.youtube.com/MFQhpwc6cKE
-
 public class CameraController : MonoBehaviour
 {
-    public Transform target;
-    public Vector3 offset;
+    private CameraSetting camSetting;
 
-    private Vector3 originalPos;
-    private Quaternion originalRot;
+    public Camera mainCam;
+    public Camera trainCam;
+    public CameraFollow camFollow;
 
-    [Range(0f, 1f)]
-    public float smoothSpeed = 0.8f;
+    public enum CameraSetting
+    {
+        Train,
+        Main,
+        MainFollow
+    }
+
+    public CameraSetting CamSetting
+    {
+        get
+        {
+            return camSetting;
+        }
+        set
+        {
+            camSetting = value;
+            CameraSetup();
+        }
+    }
 
     private void Start()
     {
-        originalPos = new Vector3(0, 20, -30);
-        originalRot = Quaternion.Euler(new Vector3(35f, 0, 0));
-        if (target != null)
+        camSetting = CameraSetting.Main;
+        CameraSetup();
+    }
+
+    private void CameraSetup()
+    {
+        switch (camSetting)
         {
-            transform.position = target.position + offset;
-            transform.LookAt(target.position);
+            case CameraSetting.Main:
+                trainCam.enabled = false;
+                mainCam.enabled = true;
+                camFollow.enabled = false;
+                break;
+
+            case CameraSetting.MainFollow:
+                trainCam.enabled = false;
+                mainCam.enabled = true;
+                camFollow.enabled = true;
+                break;
+
+            case CameraSetting.Train:
+                mainCam.enabled = false;
+                trainCam.enabled = true;
+                break;
+
         }
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        if (target != null)
+
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            transform.position = target.position + offset;
-            transform.LookAt(target.position);
+            switch (camSetting)
+            {
+                case CameraSetting.Main:
+                    CamSetting = CameraSetting.MainFollow;
+                    break;
+
+                case CameraSetting.MainFollow:
+                    CamSetting = CameraSetting.Train;
+                    break;
+
+                case CameraSetting.Train:
+                    CamSetting = CameraSetting.Main;
+                    break;
+            }
         }
     }
-
-    private void OnDisable()
-    {
-        transform.position = originalPos;
-        transform.rotation = originalRot;
-    }
-
-    private void LateUpdate()
-    {
-        if (target != null)
-        {
-            transform.position = Vector3.Lerp(transform.position, target.position + offset, smoothSpeed * Time.deltaTime);
-            transform.LookAt(target.position);
-        }
-    }
-
 }

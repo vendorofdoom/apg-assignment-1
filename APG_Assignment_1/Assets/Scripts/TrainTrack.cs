@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-// Place stations
-// Position control points
-// Generate track points
-// Add lil train to move around between stations
-// Add track mesh?
-// Get lil train to point in the right direction around track
-
 // Parts of this script are adapted for 3D from Sebastian Lague 2D Curve Editor Tutorial Series: https://youtu.be/RF04Fi9OCPc
 
 public class TrainTrack : MonoBehaviour
 {
+    [Header("Bezier Loop")]
     public BezierLoop bezierLoop;
+    public Style style;
+
+    private int maxAnchorPoints;
+    private int minDist;
+    private int maxDist;
+    private int maxHeight;
 
     [Header("Stations")]
     public Transform stationParent;
@@ -33,7 +32,9 @@ public class TrainTrack : MonoBehaviour
 
     private void Awake()
     {
-        bezierLoop = new BezierLoop(15, 10, 20, 10);
+        TrackStyle = Style.Gentle;
+        Configure();
+        bezierLoop = new BezierLoop(maxAnchorPoints, minDist, maxDist, maxHeight);
         DrawTrack();
     }
 
@@ -41,9 +42,67 @@ public class TrainTrack : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            ClearTracksAndStations();
-            bezierLoop = new BezierLoop(15, 10, 20, 10);
-            DrawTrack();
+            RegenerateTrack();
+        }
+    }
+
+    private void RegenerateTrack()
+    {
+        ClearTracksAndStations();
+        Configure();
+        bezierLoop = new BezierLoop(maxAnchorPoints, minDist, maxDist, maxHeight);
+        DrawTrack();
+    }
+
+    public Style TrackStyle
+    {
+        get
+        {
+            return style;
+        }
+        set
+        {
+            style = value;
+            Configure();
+        }
+    }
+
+    public enum Style
+    {
+        Gentle,
+        Moderate,
+        Wacky
+    }
+
+    private void Configure()
+    {
+        switch (style)
+        {
+            case Style.Gentle:
+                maxAnchorPoints = 4;
+                minDist = 5;
+                maxDist = 20;
+                maxHeight = 0;
+                break;
+
+            case Style.Moderate:
+                maxAnchorPoints = 8;
+                minDist = 10;
+                maxDist = 20;
+                maxHeight = 5;
+                break;
+
+            case Style.Wacky:
+                maxAnchorPoints = 15;
+                minDist = 10;
+                maxDist = 20;
+                maxHeight = 10;
+                break;
+
+            default:
+                throw new System.NotImplementedException();
+
+
         }
     }
 

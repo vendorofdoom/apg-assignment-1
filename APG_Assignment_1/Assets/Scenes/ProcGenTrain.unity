@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.7
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2030,6 +2030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd73848caed9754f9850280e98e8b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  style: 0
   stationParent: {fileID: 1221125539}
   stationPrefab: {fileID: 1503832760976547654, guid: ab8eb6c3a3a49d849bca29b03c401f4c, type: 3}
   stationNameGen: {fileID: 1738029929}
@@ -2376,7 +2377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 2, z: -4}
   smoothSpeed: 0.85
 --- !u!1 &1936308886
 GameObject:
@@ -2388,6 +2389,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1936308887}
   - component: {fileID: 1936308888}
+  - component: {fileID: 1936308889}
+  - component: {fileID: 1936308890}
   m_Layer: 0
   m_Name: Train
   m_TagString: Untagged
@@ -2422,11 +2425,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   track: {fileID: 1738029927}
-  service: 0
-  speedSlider: {fileID: 970529436}
+  trainService: {fileID: 1936308889}
   locomotivePrefab: {fileID: 3580280008788206120, guid: 284952f6db8005c44b68410ab989076d, type: 3}
   carriagePrefabs:
   - {fileID: 3580280008788206120, guid: fba1c7ed5bcf9fa4980467b393737cea, type: 3}
   - {fileID: 3580280008788206120, guid: 599ac38bc27f2024f8daca24add19c6a, type: 3}
   - {fileID: 3580280008788206120, guid: c8e035a77160add47a21035520b772f4, type: 3}
-  camControl: {fileID: 1880983509}
+  camFollow: {fileID: 1880983509}
+  camController: {fileID: 1936308890}
+  speedSlider: {fileID: 970529436}
+  announcements: {fileID: 38314328}
+--- !u!114 &1936308889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936308886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547b53a55673d254eaef20562c63f799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minCarriages: 0
+  maxCarriages: 0
+--- !u!114 &1936308890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936308886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9afefdf81710add4c8c661a24038e09c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 1880983507}
+  trainCam: {fileID: 1880983507}
+  camFollow: {fileID: 1880983509}
