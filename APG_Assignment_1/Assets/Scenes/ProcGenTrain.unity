@@ -182,8 +182,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6505c8b71b411b64fa4a120e58b09a7a, type: 2}
+  m_sharedMaterial: {fileID: 2528674650167790696, guid: 6505c8b71b411b64fa4a120e58b09a7a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -560,7 +560,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -75.2, y: -12.500001}
+  m_AnchoredPosition: {x: -55.099953, y: -18.99999}
   m_SizeDelta: {x: 20, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &132400019
@@ -1079,7 +1079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.688587, y: -13.899988}
+  m_AnchoredPosition: {x: 43.78863, y: -20.399977}
   m_SizeDelta: {x: 68.615, y: 20.2536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276370650
@@ -1532,7 +1532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -35.00003, y: -12.500001}
+  m_AnchoredPosition: {x: -14.9, y: -19}
   m_SizeDelta: {x: 20, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514955814
@@ -1844,7 +1844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.688587, y: -39.099987}
+  m_AnchoredPosition: {x: 43.78863, y: -45.599976}
   m_SizeDelta: {x: 68.615, y: 20.2536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &777771841
@@ -2280,7 +2280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 114.1, y: 56.9}
+  m_AnchoredPosition: {x: 90.5, y: 70.9}
   m_SizeDelta: {x: 376.205, y: 205.3211}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1033691451
@@ -3073,7 +3073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   style: 0
   stationParent: {fileID: 1221125539}
-  stationPrefab: {fileID: 8174141288189197582, guid: 90a1706b081c3a84ca2ab103cc4e97be, type: 3}
+  stationPrefab: {fileID: 5973486122595777590, guid: b885f2d6d06b2804ba5eb029a2f413c8, type: 3}
   stationNameGen: {fileID: 1738029929}
   stations: []
   stationPointIdx: 
@@ -3947,7 +3947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.8, y: 11.1}
+  m_AnchoredPosition: {x: 31.900043, y: 4.6000113}
   m_SizeDelta: {x: 44.837708, y: 21.371094}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2118302785

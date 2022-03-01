@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5973486121949135001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5973486121949135000}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5973486121949135000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5973486121949135001}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 5973486122595777588}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &5973486122595777590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5973486122595777588}
+  - component: {fileID: 5973486122595777589}
+  - component: {fileID: -2570560027726492228}
+  m_Layer: 0
+  m_Name: StationV2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5973486122595777588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5973486122595777590}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3326892, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5973486121949135000}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5973486122595777589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5973486122595777590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eae8ee3577518b4ab3225f1c7057b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoofPrefabs:
+  - {fileID: 326632612695682947, guid: 1b1a5ccb350b2f34cabf2505d8de00ea, type: 3}
+  - {fileID: 2949295603569466437, guid: 79ea51fc575c74a42a1cc0ca83c1dcc6, type: 3}
+  - {fileID: 5389431792540370416, guid: 86cde50ba87b2e447a41b43876ba2f1b, type: 3}
+  BuildingPrefabs:
+  - {fileID: 4643330003378384387, guid: aded9f124c24bff47b17fd8a8f9a7a40, type: 3}
+  FacadePrefabs:
+  - {fileID: 6997701133180277931, guid: f5e39a55369085648a7fde9a879d5eea, type: 3}
+  - {fileID: 5583166625199337972, guid: 3bc817bb937f4704cbd9072fb28a482a, type: 3}
+  - {fileID: 3076536860723830329, guid: 0e466bea30c89bb45b35163bec1c83cd, type: 3}
+  - {fileID: 8952222780245423719, guid: d5370d8a0ad3c6d4cb7c94a30a628719, type: 3}
+  - {fileID: 5643353378558007219, guid: f92d1ab529c24164cafa68ef0bb43347, type: 3}
+  CloudPrefabs:
+  - {fileID: 994642524443745031, guid: ca0671b2fe78fb848bad0421606217a1, type: 3}
+  - {fileID: 2290863345826760295, guid: d4e40204daf54df4191ba1e9230cab5c, type: 3}
+  parent: {fileID: 5973486121949135000}
+--- !u!114 &-2570560027726492228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5973486122595777590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533114fde551c684ebde302bee45989b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stationName: 
