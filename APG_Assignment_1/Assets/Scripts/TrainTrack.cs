@@ -33,9 +33,6 @@ public class TrainTrack : MonoBehaviour
     private void Awake()
     {
         TrackStyle = Style.Gentle;
-        //Configure();
-        //bezierLoop = new BezierLoop(maxAnchorPoints, minDist, maxDist, maxHeight);
-        //DrawTrack();
     }
 
     public void GentleTrack()

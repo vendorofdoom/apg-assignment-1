@@ -26,6 +26,8 @@ public class TrainOperator : MonoBehaviour
     private float[] t;
     private float speed;
 
+    public TimeOfDay tod;
+
     public void SpeedSliderChange()
     {
         speed = speedSlider.value;
@@ -77,11 +79,15 @@ public class TrainOperator : MonoBehaviour
             {
                 carriageObj = GameObject.Instantiate(locomotivePrefab, transform);
 
-                camController.trainCam = carriageObj.GetComponentInChildren<Camera>();
+                Camera cam = carriageObj.GetComponentInChildren<Camera>();
+                camController.trainCam = cam;
+                tod.trainCam = cam;
                 if (camController.CamSetting != CameraController.CameraSetting.Train)
                 {
                     camController.trainCam.enabled = false;
                 }
+
+                tod.trainHeadlights = carriageObj.transform.Find("Headlight").GetComponent<MeshRenderer>();
 
             }
             else
@@ -90,11 +96,8 @@ public class TrainOperator : MonoBehaviour
             }
 
             carriages[i] = carriageObj.GetComponent<Transform>();
-
             t[i] = startT;
-
             carriages[i].position = track.bezierLoop.AnchorPoint(0);
-
             startT += carriageSpacing;
         }
 

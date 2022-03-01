@@ -60,25 +60,24 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void CameraToggle()
     {
 
-        if (Input.GetKeyDown(KeyCode.C))
+        switch (camSetting)
         {
-            switch (camSetting)
-            {
-                case CameraSetting.Main:
-                    CamSetting = CameraSetting.MainFollow;
-                    break;
+            case CameraSetting.Main:
+                CamSetting = CameraSetting.MainFollow;
+                break;
 
-                case CameraSetting.MainFollow:
-                    CamSetting = CameraSetting.Train;
-                    break;
+            case CameraSetting.MainFollow:
+                CamSetting = CameraSetting.Train;
+                break;
 
-                case CameraSetting.Train:
-                    CamSetting = CameraSetting.Main;
-                    break;
-            }
+            case CameraSetting.Train:
+                CamSetting = CameraSetting.Main;
+                break;
         }
     }
+
+
 }
