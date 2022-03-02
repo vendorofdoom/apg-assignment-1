@@ -149,21 +149,6 @@ public class BezierLoop
 
     }
 
-    public void PosAndForwardForTime(float t, out Vector3 position, out Vector3 forward)
-    {
-        float total = 1f * anchors.Length;
-
-        t = (t * total) % total;
-
-        int segmentIdx = Mathf.FloorToInt(t);
-
-        t -= segmentIdx;
-
-        position = Bezier.EvaluateCubic(AnchorPoint(segmentIdx), PostControlPoint(segmentIdx), PrevControlPoint(segmentIdx + 1), AnchorPoint(segmentIdx + 1), t);
-        forward = Bezier.TangentCubic(AnchorPoint(segmentIdx), PostControlPoint(segmentIdx), PrevControlPoint(segmentIdx + 1), AnchorPoint(segmentIdx + 1), t);
-    }
-
-
     public void PosAndForwardForDistance(float d, out Vector3 position, out Vector3 forward)
     {
 

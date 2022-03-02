@@ -23,20 +23,4 @@ public static class Bezier
 
     }
 
-    // https://chowdera.com/2021/12/202112220035289689.html
-    public static Vector3 TangentCubic(Vector3 a, Vector3 b, Vector3 c, Vector3 d, float t)
-    {
-
-        float u = 1 - t;
-        float uu = u * u;
-        float tu = t * u;
-        float tt = t * t;
-
-        Vector3 P = a * 3 * uu * (-1.0f);
-        P += b * 3 * (uu - 2 * tu);
-        P += c * 3 * (2 * tu - tt);
-        P += d * 3 * tt;
-
-        return P;
-    }
 }
