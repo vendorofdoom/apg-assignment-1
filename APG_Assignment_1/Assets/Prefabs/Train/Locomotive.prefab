@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 3580280007141053315}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Paintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 3580280008077552596}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Paintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -326,13 +326,13 @@ Transform:
   m_Children:
   - {fileID: 3580280007141053317}
   - {fileID: 3580280008077552598}
+  - {fileID: 3548042676332282837}
   - {fileID: 325913673376828571}
   - {fileID: 8195308666003876787}
   - {fileID: 3213619013995022483}
   - {fileID: 44836140550901495}
   - {fileID: 6399896605050731801}
   - {fileID: 5484085747472550499}
-  - {fileID: 3548042676332282837}
   - {fileID: 8486332768084387284}
   - {fileID: 3144128450033410498}
   m_Father: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 7372739950556224445}
   m_Layer: 0
   m_Name: Wheel
-  m_TagString: Untagged
+  m_TagString: Paintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,7 +369,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 3580280008788206103}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &6678155539335973122
 MeshFilter:
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 2440896491037890920}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Paintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -464,7 +464,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.24380802, z: 0.9}
   m_Children: []
   m_Father: {fileID: 3580280008788206103}
-  m_RootOrder: 8
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5788548452322021982
 MeshFilter:
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 2439414043589771716}
   m_Layer: 0
   m_Name: Wheel (3)
-  m_TagString: Untagged
+  m_TagString: Paintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -546,7 +546,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 3580280008788206103}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &766267852567300226
 MeshFilter:
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 9202125105309150441}
   m_Layer: 0
   m_Name: Wheel (1)
-  m_TagString: Untagged
+  m_TagString: Paintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,7 +642,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 3580280008788206103}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &4224036384252543939
 MeshFilter:
@@ -720,7 +720,7 @@ GameObject:
   - component: {fileID: 1905138021570726510}
   m_Layer: 0
   m_Name: Exhaust
-  m_TagString: Untagged
+  m_TagString: Paintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -737,7 +737,7 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.6, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3580280008788206103}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6101986215812668902
 MeshFilter:
@@ -802,7 +802,7 @@ GameObject:
   - component: {fileID: 1771109232830137189}
   m_Layer: 0
   m_Name: Wheel (2)
-  m_TagString: Untagged
+  m_TagString: Paintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -819,7 +819,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 3580280008788206103}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &5898811245539410459
 MeshFilter:
@@ -1010,7 +1010,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3580280008788206103}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3238414581468692767
 ParticleSystem:

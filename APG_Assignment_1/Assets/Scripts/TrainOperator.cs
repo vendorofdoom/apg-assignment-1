@@ -27,6 +27,7 @@ public class TrainOperator : MonoBehaviour
     private float speed;
 
     public TimeOfDay tod;
+    public ColourControl colourControl;
 
     public void SpeedSliderChange()
     {
@@ -103,6 +104,8 @@ public class TrainOperator : MonoBehaviour
 
         camFollow.target = carriages[0];
         AnnounceNextStop(-1); // assume we start at the first station?
+
+        colourControl.Paint();
     }
 
     public void RegenerateTrain()

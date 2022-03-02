@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TrainCamera
   - Station
+  - Paintable
   layers:
   - Default
   - TransparentFX

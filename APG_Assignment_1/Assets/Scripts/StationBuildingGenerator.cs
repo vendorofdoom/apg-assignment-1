@@ -11,7 +11,7 @@ public class StationBuildingGenerator : MonoBehaviour
 
     public Transform parent;
 
-    private void Start()
+    private void Awake()
     {
         GameObject.Instantiate(RoofPrefabs[Random.Range(0, RoofPrefabs.Length)], parent);
         GameObject.Instantiate(BuildingPrefabs[Random.Range(0, BuildingPrefabs.Length)], parent);
