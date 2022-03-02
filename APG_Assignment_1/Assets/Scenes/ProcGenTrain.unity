@@ -3116,11 +3116,15 @@ MonoBehaviour:
   - Greater
   - Old
   - New
+  - North
+  - South
+  - East
+  - West
   prefixes:
-  - Kes
+  - Cloud
   - Crow
   - Bird
-  - Eag
+  - Phoenix
   - Owl
   - Robin
   - Wing
@@ -3129,11 +3133,15 @@ MonoBehaviour:
   - Beak
   - Feather
   - Chick
+  - Moon
+  - Sun
+  - Rain
+  - Wind
   suffixes:
   - wick
   - ing
   - ham
-  - thorne
+  - berry
   - rith
   - ton
   - bridge
@@ -3142,16 +3150,10 @@ MonoBehaviour:
   - pool
   - minster
   - down
-  places:
-  - Park
-  - Bridge
-  - Racecourse
-  - Street
-  - Road
-  - East
-  - West
-  - North
-  - South
+  - water
+  - mouth
+  - cester
+  - by
 --- !u!1 &1789342894
 GameObject:
   m_ObjectHideFlags: 0
