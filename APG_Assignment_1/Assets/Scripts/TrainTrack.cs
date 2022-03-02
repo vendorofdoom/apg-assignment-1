@@ -27,10 +27,11 @@ public class TrainTrack : MonoBehaviour
     public GameObject trackPrefab;
 
     [Header("Scenery")]
-    public GameObject sceneryPrefab;
+    public GameObject[] sceneryPrefabs;
     public bool drawScenery = false;
 
     public ColourControl colourControl;
+    public TimeOfDay tod;
 
     private void Awake()
     {
@@ -130,6 +131,9 @@ public class TrainTrack : MonoBehaviour
 
     private void DrawTrack()
     {
+
+        tod.lamps = new List<MeshRenderer>();
+
         stations = new List<Station>();
         stationPointIdx = new List<int>();
 
@@ -183,11 +187,22 @@ public class TrainTrack : MonoBehaviour
                 {
                     if (!TooCloseToStations(bezierLoop.sampledPoints[i], 5f))
                     {
-                        GameObject t = GameObject.Instantiate(sceneryPrefab, trackParent);
+                        GameObject t = GameObject.Instantiate(sceneryPrefabs[Random.Range(0, sceneryPrefabs.Length)], trackParent);
                         t.transform.position = bezierLoop.sampledPoints[i];
                         t.transform.localScale *= (bezierLoop.spacing * 2f);
                         t.transform.forward = bezierLoop.sampledDirs[i];
                         gapLength = Random.Range(10, 50); // make this a parameter?
+
+                        if (t.name.ToLower().Contains("lamp"))
+                        {
+                            foreach (MeshRenderer mr in t.GetComponentsInChildren<MeshRenderer>())
+                            {
+                                if (mr.name.ToLower().Contains("lamp"))
+                                {
+                                    tod.lamps.Add(mr);
+                                }
+                            }
+                        }
                     }
                 }
             }

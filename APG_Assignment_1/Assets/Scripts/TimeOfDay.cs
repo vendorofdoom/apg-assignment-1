@@ -10,8 +10,10 @@ public class TimeOfDay : MonoBehaviour
     public Camera trainCam; // TODO: get this filled in when train cam is setup
 
     public MeshRenderer trainHeadlights;
-    public Material trainHeadlightsOn;
-    public Material trainHeadlightsOff;
+    public Material lightsOn;
+    public Material lightsOff;
+
+    public List<MeshRenderer> lamps;
 
     public Gradient sky;
     public Light sun; // TODO: rotate position based on time of day?
@@ -27,6 +29,7 @@ public class TimeOfDay : MonoBehaviour
     public void SliderChange()
     {
         timeOfDay = timeOfDaySlider.value;
+        SetColours();
     }
 
     void Start()
@@ -38,30 +41,49 @@ public class TimeOfDay : MonoBehaviour
 
     void Update()
     {
-        SetColours();
+        //SetColours();
     }
 
     public void SetColours()
     {
         mainCam.backgroundColor = sky.Evaluate(timeOfDay);
         sun.intensity = timeOfDay;
+
         if (trainHeadlights != null && trainSmoke != null)
         {
             if (timeOfDay <= 0.3)
             {
-                trainHeadlights.material = trainHeadlightsOn;
+                trainHeadlights.material = lightsOn;
                 trainSmoke.material = nightSmoke;
             }
             else
             {
-                trainHeadlights.material = trainHeadlightsOff;
+                trainHeadlights.material = lightsOff;
                 trainSmoke.material = daySmoke;
             }
         }
+
         if (trainCam != null)
         {
             trainCam.backgroundColor = sky.Evaluate(timeOfDay);
         }
+
+        if (lamps != null)
+        {
+            foreach (MeshRenderer lamp in lamps)
+            {
+                if (timeOfDay <= 0.3)
+                {
+                    lamp.material = lightsOn;
+                }
+                else
+                {
+                    lamp.material = lightsOff;
+                }
+
+            }
+        }
+
 
     }
 }

@@ -3079,9 +3079,14 @@ MonoBehaviour:
   stationPointIdx: 
   trackParent: {fileID: 897301799}
   trackPrefab: {fileID: 8158555397119129867, guid: a6eee0897db0ae6418226dc9d5ed19cf, type: 3}
-  sceneryPrefab: {fileID: 396994341026364184, guid: d589515ee45ad8246927506c94b161fd, type: 3}
+  sceneryPrefabs:
+  - {fileID: 396994341026364184, guid: d589515ee45ad8246927506c94b161fd, type: 3}
+  - {fileID: 396994341026364184, guid: d589515ee45ad8246927506c94b161fd, type: 3}
+  - {fileID: 4998117593746271536, guid: 45ad2a565989cc34198bee89f7337807, type: 3}
+  - {fileID: 4998117593746271536, guid: 3e8de9f582302494e817bf4e65ca3c6e, type: 3}
   drawScenery: 1
   colourControl: {fileID: 2054991574}
+  tod: {fileID: 2054991572}
 --- !u!4 &1738029928
 Transform:
   m_ObjectHideFlags: 0
@@ -3868,8 +3873,9 @@ MonoBehaviour:
   mainCam: {fileID: 1880983507}
   trainCam: {fileID: 0}
   trainHeadlights: {fileID: 0}
-  trainHeadlightsOn: {fileID: 2100000, guid: ed5bbd3fade454b4197fe176a09fbd1f, type: 2}
-  trainHeadlightsOff: {fileID: 2100000, guid: 95e7ac35bdf8d7b4a8b1330a9aaf3180, type: 2}
+  lightsOn: {fileID: 2100000, guid: ed5bbd3fade454b4197fe176a09fbd1f, type: 2}
+  lightsOff: {fileID: 2100000, guid: 95e7ac35bdf8d7b4a8b1330a9aaf3180, type: 2}
+  lamps: []
   sky:
     serializedVersion: 2
     key0: {r: 0.027968515, g: 0.07329247, b: 0.11705249, a: 1}
