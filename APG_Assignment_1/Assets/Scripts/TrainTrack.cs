@@ -26,9 +26,9 @@ public class TrainTrack : MonoBehaviour
     public Transform trackParent;
     public GameObject trackPrefab;
 
-    [Header("Tunnels")]
-    public GameObject tunnelPrefab;
-    public bool drawTunnels = false;
+    [Header("Scenery")]
+    public GameObject sceneryPrefab;
+    public bool drawScenery = false;
 
     public ColourControl colourControl;
 
@@ -59,6 +59,7 @@ public class TrainTrack : MonoBehaviour
         bezierLoop = new BezierLoop(maxAnchorPoints, minDist, maxDist, maxHeight);
         DrawTrack();
         colourControl.PaintStations(stations);
+        colourControl.PaintTrackAndDetails(trackParent);
     }
 
     public Style TrackStyle
@@ -132,47 +133,16 @@ public class TrainTrack : MonoBehaviour
         stations = new List<Station>();
         stationPointIdx = new List<int>();
 
-        bool placeTunnelPiece = false;
-        int tunnelLength = 0;
+        int gapLength = 0;
 
         for (int i = 0; i < bezierLoop.sampledPoints.Length; i++)
+
         {
             GameObject g = GameObject.Instantiate(trackPrefab, trackParent);
             g.transform.position = bezierLoop.sampledPoints[i];
             g.transform.localScale *= (bezierLoop.spacing * 2f);
             g.transform.forward = bezierLoop.sampledDirs[i];
 
-            if (drawTunnels)
-            {
-                if (placeTunnelPiece)
-                {
-
-                    if (tunnelLength > 0)
-                    {
-                        GameObject t = GameObject.Instantiate(tunnelPrefab, trackParent);
-                        t.transform.position = bezierLoop.sampledPoints[i];
-                        t.transform.localScale *= (bezierLoop.spacing * 2f);
-                        t.transform.forward = bezierLoop.sampledDirs[i];
-                        tunnelLength--;
-                    }
-                    else
-                    {
-                        placeTunnelPiece = false;
-                    }
-
-                }
-                else
-                {
-                    if (Random.Range(0f, 1f) >= 0.995f)
-                    {
-                        placeTunnelPiece = true;
-                        //tunnelLength = Random.Range(1, 5); // make this a parameter?
-                        tunnelLength = 1;
-                    }
-                }
-            }
-
-            
             if (Random.Range(0f, 1f) >= 0.9f 
                 && (Vector3.Dot(g.transform.up.normalized, Vector3.up) >= 0.95f)) // only place a station if the spot is relatively "upright"
             {
@@ -199,8 +169,47 @@ public class TrainTrack : MonoBehaviour
 
         }
 
+        // TODO: implement less hacky way of making sure we don't have overlapping objects where the
+        // start and end of the loop meet
+        for (int i = 0; i < bezierLoop.sampledPoints.Length - 5; i++) 
+        {
+            if (drawScenery)
+            {
+                if (gapLength > 0)
+                {
+                    gapLength--;
+                }
+                else
+                {
+                    if (!TooCloseToStations(bezierLoop.sampledPoints[i], 5f))
+                    {
+                        GameObject t = GameObject.Instantiate(sceneryPrefab, trackParent);
+                        t.transform.position = bezierLoop.sampledPoints[i];
+                        t.transform.localScale *= (bezierLoop.spacing * 2f);
+                        t.transform.forward = bezierLoop.sampledDirs[i];
+                        gapLength = Random.Range(10, 50); // make this a parameter?
+                    }
+                }
+            }
+        }
     }
 
+    private bool TooCloseToStations(Vector3 itemToPlace, float minDist)
+    {
+        bool tooCloseToAnotherStation = false;
+
+        // I couldn't get collider checks working here? Maybe something to do with physics calcs if stuff being placed in the same frame?
+        foreach (Station s in stations)
+        {
+            if (Vector3.Distance(s.transform.position, itemToPlace) < minDist)
+            {
+                tooCloseToAnotherStation = true;
+                break;
+            }
+        }
+
+        return tooCloseToAnotherStation;
+    }
     private void BuildAStation(Vector3 pos, Vector3 forward)
     {
         GameObject s = GameObject.Instantiate(stationPrefab, stationParent);

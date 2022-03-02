@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class ColourControl : MonoBehaviour
 {
-    //public List<GameObject> paintable;
-
-    [Header("Station")]
-    public Material buildingMat;
-    public Material buildingBaseMat;
-    public Material roofMat;
-    public Material doorMat;
-    public Material doorKnobMat;
-    public Material windowGlassMat;
-    public Material windowPaneMat;
-    public Material cloudMat;
-
     public Gradient stationColours;
     public Gradient cloudColours;
     public Gradient trainColours;
@@ -69,6 +57,31 @@ public class ColourControl : MonoBehaviour
                 }
             }
         }
+    }
 
+    public void PaintTrackAndDetails(Transform trackParent)
+    {
+        float seed = Random.Range(0f, 1f);
+        Color train1 = trainColours.Evaluate((seed) % 1f);
+        Color train2 = trainColours.Evaluate((seed + 0.5f) % 1f);
+
+        foreach (MeshRenderer mr in trackParent.GetComponentsInChildren<MeshRenderer>())
+        {
+            foreach (Material m in mr.materials)
+            {
+                if (m.name.ToLower().Contains("cloud"))
+                {
+                    m.color = cloudColours.Evaluate(Random.Range(0f, 1f));
+                }
+                else if (!m.name.ToLower().Contains("train_1"))
+                {
+                    m.color = train1;
+                }
+                else if (!m.name.ToLower().Contains("train_2"))
+                {
+                    m.color = train2;
+                }
+            }
+        }
     }
 }

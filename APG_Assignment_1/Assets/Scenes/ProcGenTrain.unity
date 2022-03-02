@@ -3079,8 +3079,8 @@ MonoBehaviour:
   stationPointIdx: 
   trackParent: {fileID: 897301799}
   trackPrefab: {fileID: 8158555397119129867, guid: a6eee0897db0ae6418226dc9d5ed19cf, type: 3}
-  tunnelPrefab: {fileID: 396994341026364184, guid: d589515ee45ad8246927506c94b161fd, type: 3}
-  drawTunnels: 1
+  sceneryPrefab: {fileID: 396994341026364184, guid: d589515ee45ad8246927506c94b161fd, type: 3}
+  drawScenery: 1
   colourControl: {fileID: 2054991574}
 --- !u!4 &1738029928
 Transform:
@@ -3901,6 +3901,9 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   sun: {fileID: 907130504}
   timeOfDaySlider: {fileID: 132400019}
+  trainSmoke: {fileID: 0}
+  daySmoke: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  nightSmoke: {fileID: 2100000, guid: a9cccd275105d9a48b2c3a084a2c1193, type: 2}
 --- !u!4 &2054991573
 Transform:
   m_ObjectHideFlags: 0
@@ -3927,14 +3930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec82816b9e0f714d8047abbc78df4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingMat: {fileID: 2100000, guid: 9d20a41992391074393a16f70c8b2f0b, type: 2}
-  buildingBaseMat: {fileID: 2100000, guid: e5b86470c7d15d84cad7895720668f79, type: 2}
-  roofMat: {fileID: 2100000, guid: 8f47f291ec18f3e49bbc79ae0f4f2110, type: 2}
-  doorMat: {fileID: 2100000, guid: ee948ce71625c6549ba71c9994318207, type: 2}
-  doorKnobMat: {fileID: 2100000, guid: 42069391025072b43a0258da225ed308, type: 2}
-  windowGlassMat: {fileID: 2100000, guid: 6d225dc430fd2ca428f2de8b29de556d, type: 2}
-  windowPaneMat: {fileID: 2100000, guid: 43bc2155206d5cd47bc3396be735e899, type: 2}
-  cloudMat: {fileID: 2100000, guid: 3a649f17750a10a4fa9e47b5bd8a28a3, type: 2}
   stationColours:
     serializedVersion: 2
     key0: {r: 0.9528302, g: 0.5249555, b: 0.7207636, a: 1}

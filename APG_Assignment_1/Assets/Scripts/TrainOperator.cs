@@ -89,6 +89,7 @@ public class TrainOperator : MonoBehaviour
                 }
 
                 tod.trainHeadlights = carriageObj.transform.Find("Headlight").GetComponent<MeshRenderer>();
+                tod.trainSmoke = carriageObj.transform.Find("Smoke").GetComponent<ParticleSystemRenderer>();
 
             }
             else

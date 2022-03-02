@@ -90,6 +90,10 @@ MonoBehaviour:
   CloudPrefabs:
   - {fileID: 994642524443745031, guid: ca0671b2fe78fb848bad0421606217a1, type: 3}
   - {fileID: 2290863345826760295, guid: d4e40204daf54df4191ba1e9230cab5c, type: 3}
+  - {fileID: 994642524443745031, guid: 7e3e89f5bd167ba4eac6303e8ceba813, type: 3}
+  - {fileID: 2290863345826760295, guid: 45533a1bed0e2494a930ddd135f1554e, type: 3}
+  - {fileID: 994642524443745031, guid: 7923cea195cfe09449edb0ef095e489a, type: 3}
+  - {fileID: 2290863345826760295, guid: dc607790995a5fd47a0414c7f57cd76f, type: 3}
   parent: {fileID: 5973486121949135000}
 --- !u!114 &-2570560027726492228
 MonoBehaviour:

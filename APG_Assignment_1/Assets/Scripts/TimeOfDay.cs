@@ -19,6 +19,11 @@ public class TimeOfDay : MonoBehaviour
     private float timeOfDay;
     public Slider timeOfDaySlider;
 
+
+    public ParticleSystemRenderer trainSmoke;
+    public Material daySmoke;
+    public Material nightSmoke;
+
     public void SliderChange()
     {
         timeOfDay = timeOfDaySlider.value;
@@ -40,15 +45,17 @@ public class TimeOfDay : MonoBehaviour
     {
         mainCam.backgroundColor = sky.Evaluate(timeOfDay);
         sun.intensity = timeOfDay;
-        if (trainHeadlights != null)
+        if (trainHeadlights != null && trainSmoke != null)
         {
             if (timeOfDay <= 0.3)
             {
                 trainHeadlights.material = trainHeadlightsOn;
+                trainSmoke.material = nightSmoke;
             }
             else
             {
                 trainHeadlights.material = trainHeadlightsOff;
+                trainSmoke.material = daySmoke;
             }
         }
         if (trainCam != null)
