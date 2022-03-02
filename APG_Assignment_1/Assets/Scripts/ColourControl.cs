@@ -16,37 +16,59 @@ public class ColourControl : MonoBehaviour
     public Material windowPaneMat;
     public Material cloudMat;
 
-    public Gradient buildingColours;
+    public Gradient stationColours;
     public Gradient cloudColours;
     public Gradient trainColours;
 
-
-
-    public void Paint()
+    public void PaintTrain(Transform train)
     {
-        // TODO: limit colours to a section of the palette?
+        float seed = Random.Range(0f, 1f);
 
-        GameObject[] paintable = GameObject.FindGameObjectsWithTag("Paintable");
-        Debug.Log(paintable.Length);
+        // Try to select colours far enough apart in the gradient so they look distinct
+        Color wheels = trainColours.Evaluate(seed);
+        Color train1 = trainColours.Evaluate((seed + 0.33f) % 1f);
+        Color train2 = trainColours.Evaluate((seed + 0.66f) % 1f);
 
-        foreach (GameObject go in paintable)
+        foreach (MeshRenderer mr in train.GetComponentsInChildren<MeshRenderer>())
         {
-            foreach (Material m in go.GetComponent<MeshRenderer>().materials)
+            foreach(Material m in mr.materials)
             {
-                if (m.name.ToLower().Contains("cloud"))
+
+                if (m.name.ToLower().Contains("wheel"))
                 {
-                    m.color = cloudColours.Evaluate(Random.Range(0f, 1f));
+                    m.color = wheels;
                 }
-                else if (m.name.ToLower().Contains("train") || m.name.ToLower().Contains("wheels"))
+                else if (!m.name.ToLower().Contains("train_1"))
                 {
-                    m.color = trainColours.Evaluate(Random.Range(0f, 1f));
+                    m.color = train1;
                 }
-                else if (!m.name.ToLower().Contains("glass"))
+                else if (!m.name.ToLower().Contains("train_2"))
                 {
-                    m.color = buildingColours.Evaluate(Random.Range(0f, 1f));
+                    m.color = train2;
                 }
             }
         }
     }
 
+    public void PaintStations(List<Station> stations)
+    {
+        foreach (Station s in stations)
+        {
+            foreach (MeshRenderer mr in s.transform.Find("StationOffset").transform.GetComponentsInChildren<MeshRenderer>())
+            {
+                foreach (Material m in mr.materials)
+                {
+                    if (m.name.ToLower().Contains("cloud"))
+                    {
+                        m.color = cloudColours.Evaluate(Random.Range(0f, 1f));
+                    }
+                    else if (!m.name.ToLower().Contains("glass"))
+                    {
+                        m.color = stationColours.Evaluate(Random.Range(0f, 1f));
+                    }
+                }
+            }
+        }
+
+    }
 }

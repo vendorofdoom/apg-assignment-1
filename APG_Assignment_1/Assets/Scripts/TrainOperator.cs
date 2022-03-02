@@ -105,7 +105,7 @@ public class TrainOperator : MonoBehaviour
         camFollow.target = carriages[0];
         AnnounceNextStop(-1); // assume we start at the first station?
 
-        colourControl.Paint();
+        colourControl.PaintTrain(transform);
     }
 
     public void RegenerateTrain()

@@ -30,7 +30,7 @@ public class TrainTrack : MonoBehaviour
     public GameObject tunnelPrefab;
     public bool drawTunnels = false;
 
-    public ColourControl colourControl; // TODO: move this somewhere else so it's not called twices
+    public ColourControl colourControl;
 
     private void Awake()
     {
@@ -58,7 +58,7 @@ public class TrainTrack : MonoBehaviour
         Configure();
         bezierLoop = new BezierLoop(maxAnchorPoints, minDist, maxDist, maxHeight);
         DrawTrack();
-        colourControl.Paint();
+        colourControl.PaintStations(stations);
     }
 
     public Style TrackStyle
