@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// TODO: Move service stuff out into it's own config?
-
 public class TrainOperator : MonoBehaviour
 {
     public TrainTrack track;
@@ -107,6 +105,7 @@ public class TrainOperator : MonoBehaviour
         AnnounceNextStop(-1); // assume we start at the first station?
 
         colourControl.PaintTrain(transform);
+        tod.SetColours();
     }
 
     public void RegenerateTrain()

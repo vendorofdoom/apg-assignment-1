@@ -3084,6 +3084,11 @@ MonoBehaviour:
   - {fileID: 396994341026364184, guid: d589515ee45ad8246927506c94b161fd, type: 3}
   - {fileID: 4998117593746271536, guid: 45ad2a565989cc34198bee89f7337807, type: 3}
   - {fileID: 4998117593746271536, guid: 3e8de9f582302494e817bf4e65ca3c6e, type: 3}
+  - {fileID: 9181952363803701653, guid: 2fcd80a1aacba1c46963544f979fa5bc, type: 3}
+  - {fileID: 2226974009545823282, guid: bfcf7839dfdb1c74d87387a524f421df, type: 3}
+  - {fileID: 763877290199173522, guid: d826725ba2bae5a498316ed58cdac938, type: 3}
+  - {fileID: 3177260685880749302, guid: 22190140ccf13304aadc5c2eb2f72a94, type: 3}
+  - {fileID: 44441398830669033, guid: 45ee1d4dce0bd774ca9f4c2ac261395b, type: 3}
   drawScenery: 1
   colourControl: {fileID: 2054991574}
   tod: {fileID: 2054991572}

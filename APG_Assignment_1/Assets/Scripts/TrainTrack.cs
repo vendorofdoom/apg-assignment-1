@@ -61,6 +61,7 @@ public class TrainTrack : MonoBehaviour
         DrawTrack();
         colourControl.PaintStations(stations);
         colourControl.PaintTrackAndDetails(trackParent);
+        tod.SetColours();
     }
 
     public Style TrackStyle
@@ -191,7 +192,7 @@ public class TrainTrack : MonoBehaviour
                         t.transform.position = bezierLoop.sampledPoints[i];
                         t.transform.localScale *= (bezierLoop.spacing * 2f);
                         t.transform.forward = bezierLoop.sampledDirs[i];
-                        gapLength = Random.Range(10, 50); // make this a parameter?
+                        gapLength = Random.Range(10, 25); // make this a parameter?
 
                         if (t.name.ToLower().Contains("lamp"))
                         {
@@ -246,7 +247,3 @@ public class TrainTrack : MonoBehaviour
     }
 
 }
-
-
-
-

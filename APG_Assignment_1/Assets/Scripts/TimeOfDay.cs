@@ -39,11 +39,6 @@ public class TimeOfDay : MonoBehaviour
         SetColours();
     }
 
-    void Update()
-    {
-        //SetColours();
-    }
-
     public void SetColours()
     {
         mainCam.backgroundColor = sky.Evaluate(timeOfDay);
